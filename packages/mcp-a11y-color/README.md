@@ -13,19 +13,11 @@ Covers **WCAG 2.2** (SC 1.4.1, 1.4.3, 1.4.6, 1.4.11, 2.4.7) criteria.
 | `suggest-contrast-fix` | Given a failing pair, suggest the minimal change to meet target level |
 | `simulate-color-blindness` | Simulate colors under 8 types of color vision deficiency |
 | `find-accessible-color` | Given background + hue, find a color meeting a target contrast ratio |
-
-### Planned tools
-
-- `check-contrast-apca` — APCA (draft WCAG 3) contrast
-- `check-link-contrast` — Link vs background + link vs surrounding text
-- `check-palette-contrast` — Contrast matrix for all pairs in a palette
-- `check-palette-colorblind-safety` — Palette distinguishability across CVD types
-- `generate-accessible-palette` — Generate color scales from seed colors + target ratios
-- `check-text-on-gradient` — Text readability over gradient backgrounds
-- `check-alpha-transparency` — Resolve semi-transparent colors and check contrast
-- `check-dark-mode-pair` — Validate colors across light + dark mode
-- `check-focus-indicator` — Focus indicator contrast vs component + page background
-- `audit-color-tokens` — Audit design token pairs for contrast compliance
+| `apca-contrast` | APCA Lc (WCAG 3.0 draft) perceptual contrast score with polarity and usage recommendation |
+| `nearest-color-name` | Find the closest CSS named color(s) using perceptual Delta E distance |
+| `analyze-palette-contrast` | N×N contrast matrix for a set of colors — essential for design system audits |
+| `generate-cvd-safe-palette` | Generate a palette of N colors distinguishable under all CVD types |
+| `analyze-design-tokens` | Audit design tokens for WCAG compliance, auto-classify and suggest fixes |
 
 ## Installation
 
@@ -75,10 +67,10 @@ Add to `claude_desktop_config.json`:
 
 | SC | Name | Tools |
 | --- | --- | --- |
-| 1.4.1 | Use of Color | `simulate-color-blindness` |
-| 1.4.3 | Contrast (Minimum) | `check-contrast`, `suggest-contrast-fix`, `find-accessible-color` |
-| 1.4.6 | Contrast (Enhanced) | `check-contrast`, `suggest-contrast-fix`, `find-accessible-color` |
-| 1.4.11 | Non-text Contrast | `check-contrast` |
+| 1.4.1 | Use of Color | `simulate-color-blindness`, `generate-cvd-safe-palette` |
+| 1.4.3 | Contrast (Minimum) | `check-contrast`, `suggest-contrast-fix`, `find-accessible-color`, `analyze-design-tokens` |
+| 1.4.6 | Contrast (Enhanced) | `check-contrast`, `suggest-contrast-fix`, `find-accessible-color`, `apca-contrast` |
+| 1.4.11 | Non-text Contrast | `check-contrast`, `analyze-palette-contrast` |
 | 2.4.7 | Focus Visible | Planned: `check-focus-indicator` |
 
 ## License

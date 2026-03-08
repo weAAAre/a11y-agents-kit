@@ -6,7 +6,7 @@ Thanks for your interest in contributing! This project is maintained by [weAAAre
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) >= 20
+- [Node.js](https://nodejs.org/) >= 24
 - [pnpm](https://pnpm.io/) >= 9
 
 ### Setup

@@ -12,7 +12,7 @@ const config: UserConfig = {
         'mcp-a11y-color',
         // skills
         'skills',
-        'wcag-compliance',
+        'aria-patterns',
         // monorepo layers
         'packages',
         'root',

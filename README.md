@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/weAAAre/accessibility-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/weAAAre/accessibility-skills/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Node >= 20](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org/)
+[![Node >= 24](https://img.shields.io/badge/node-%3E%3D24-brightgreen)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-9-orange)](https://pnpm.io/)
 
 ## What's inside
@@ -25,7 +25,7 @@ Reusable procedural knowledge for AI coding agents, distributed via [skills.sh](
 
 | Skill | Description | Install |
 |-------|-------------|---------|
-| [`wcag-compliance`](./skills/wcag-compliance/) | Write WCAG 2.2 Level AA compliant HTML, CSS, ARIA, and JS | `npx skills add weAAAre/accessibility-skills@wcag-compliance` |
+| [`aria-patterns`](./skills/aria-patterns/) | Accessible ARIA patterns for interactive UI components | `npx skills add weAAAre/accessibility-skills@aria-patterns` |
 
 ---
 
@@ -40,7 +40,7 @@ npx skills add weAAAre/accessibility-skills
 ### Install a specific skill
 
 ```bash
-npx skills add weAAAre/accessibility-skills@wcag-compliance
+npx skills add weAAAre/accessibility-skills@aria-patterns
 ```
 
 ### Use an MCP server (Claude Desktop, VS Code, etc.)
@@ -64,11 +64,16 @@ Add to your MCP client configuration:
 
 | Tool | Description |
 |------|-------------|
-| `check-contrast` | Check contrast ratio between two colors (WCAG AA/AAA) |
-| `find-accessible-color` | Find the closest accessible color to a given input |
-| `get-color-info` | Get full color info: hex, RGB, HSL, luminance |
-| `simulate-color-blindness` | Simulate how a color looks with protanopia, deuteranopia, tritanopia |
-| `suggest-contrast-fix` | Suggest a foreground/background adjustment to meet WCAG contrast |
+| `check-contrast` | WCAG 2.2 contrast ratio between fg/bg — pass/fail for AA/AAA, normal/large/UI |
+| `get-color-info` | Parse any CSS color → hex, RGB, HSL, luminance, contrast on B/W |
+| `suggest-contrast-fix` | Suggest the minimal color change to meet a target WCAG level |
+| `simulate-color-blindness` | Simulate colors under 8 types of color vision deficiency |
+| `find-accessible-color` | Given background + hue, find a color meeting a target contrast ratio |
+| `apca-contrast` | APCA Lc (WCAG 3.0 draft) perceptual contrast score |
+| `nearest-color-name` | Find the closest CSS named color(s) using perceptual Delta E |
+| `analyze-palette-contrast` | N×N contrast matrix for a set of colors — design system audits |
+| `generate-cvd-safe-palette` | Generate a palette distinguishable under all CVD types |
+| `analyze-design-tokens` | Audit design tokens for WCAG compliance with automatic fixes |
 
 ---
 
@@ -76,7 +81,7 @@ Add to your MCP client configuration:
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) >= 20
+- [Node.js](https://nodejs.org/) >= 24
 - [pnpm](https://pnpm.io/) >= 9
 
 ### Setup

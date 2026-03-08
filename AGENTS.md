@@ -15,11 +15,11 @@ This monorepo provides **accessibility-focused skills and MCP servers** for AI c
 | Node.js | ≥ 24 | Runtime (see `.nvmrc`) |
 | pnpm | 9.15.4 | Package manager with workspace catalog |
 | TypeScript | 5.9.3 | Language (strict mode, ESM) |
-| Turborepo | 2.8.13 | Monorepo task orchestration |
-| Biome | 2.3.1 | Linter + formatter |
-| Rstest | 0.3.4 | Test runner |
+| Turborepo | 2.8.14 | Monorepo task orchestration |
+| Biome | 2.4.6 | Linter + formatter |
+| Rstest | 0.9.0 | Test runner |
 | Changesets | 2.30.0 | Versioning and npm publishing |
-| Lefthook | 2.1.2 | Git hooks |
+| Lefthook | 2.1.3 | Git hooks |
 | Commitlint | 20.4.3 | Commit message validation |
 
 ## Commands

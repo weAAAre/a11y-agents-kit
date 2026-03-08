@@ -11,14 +11,14 @@ npx skills add weAAAre/accessibility-skills
 ## Install a specific skill
 
 ```bash
-npx skills add weAAAre/accessibility-skills@wcag-compliance
+npx skills add weAAAre/accessibility-skills@aria-patterns
 ```
 
 ## Available skills
 
 | Skill | Description |
 | --- | --- |
-| [wcag-compliance](./wcag-compliance/) | Guides the agent to write WCAG 2.2 Level AA compliant code |
+| [aria-patterns](./aria-patterns/) | Accessible ARIA patterns for interactive UI components |
 
 ## Contributing a new skill
 
