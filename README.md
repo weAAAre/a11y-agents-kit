@@ -89,8 +89,25 @@ Add to your MCP client configuration:
 | `voiceover_stop` | Stop VoiceOver and clean up the session |
 | `voiceover_commander` | Execute native VoiceOver commander commands for reliable navigation |
 | `voiceover_perform` | Execute keyboard-driven VoiceOver navigation commands |
+| `voiceover_next` | Move the VoiceOver cursor to the next item |
+| `voiceover_previous` | Move the VoiceOver cursor to the previous item |
+| `voiceover_act` | Perform default action for focused item (VO-Space equivalent) |
+| `voiceover_interact` | Start interacting with the current container item |
+| `voiceover_stop_interacting` | Stop interacting with the current container item |
+| `voiceover_press` | Press a key on the focused item (e.g. `Enter`, `Tab`, `ArrowDown`) |
+| `voiceover_type` | Type text into the currently focused item |
 | `voiceover_item_text` | Read current focused item text announced by VoiceOver |
 | `voiceover_last_spoken_phrase` | Get the latest spoken output from VoiceOver |
+| `voiceover_spoken_phrase_log` | Get full spoken phrase history for this session |
+| `voiceover_item_text_log` | Get full visited item text history for this session |
+| `voiceover_clear_spoken_phrase_log` | Clear the spoken phrase log for this session |
+| `voiceover_clear_item_text_log` | Clear the item text log for this session |
+| `voiceover_click` | Perform a mouse click at the current position |
+| `voiceover_detect` | Detect whether VoiceOver is supported on the current system |
+| `voiceover_default` | Check whether VoiceOver is the default screen reader |
+| `macos_activate_application` | Activate a macOS application by name |
+| `macos_get_active_application` | Get the currently active macOS application |
+| `focus_history` | Retrieve complete focus breadcrumb history |
 | `focus_ensure_browser` | Ensure browser is focused before audit navigation |
 | `focus_record` | Record focus breadcrumbs for recovery during audits |
 | `focus_last_known` | Recover last known focus position if context is lost |

@@ -18,10 +18,14 @@ Covers **WCAG 2.2** (SC 1.1.1, 1.3.1, 2.1.1, 2.1.2, 2.4.1, 2.4.2, 2.4.3, 2.4.4, 
 | `voiceover_act` | Perform default action for focused item (VO-Space equivalent) |
 | `voiceover_interact` | Start interacting with the current container item |
 | `voiceover_stop_interacting` | Stop interacting with the current container item |
+| `voiceover_press` | Press a key on the focused item (e.g. `Enter`, `Tab`, `ArrowDown`) |
+| `voiceover_type` | Type text into the currently focused item |
 | `voiceover_item_text` | Get text of the currently focused VoiceOver item |
 | `voiceover_last_spoken_phrase` | Get the most recent phrase spoken by VoiceOver |
 | `voiceover_spoken_phrase_log` | Get full spoken phrase history for this session |
 | `voiceover_item_text_log` | Get full visited item text history for this session |
+| `voiceover_clear_spoken_phrase_log` | Clear the spoken phrase log for this session |
+| `voiceover_clear_item_text_log` | Clear the item text log for this session |
 | `voiceover_click` | Perform a mouse click at the current position |
 | `voiceover_detect` | Detect whether VoiceOver is supported on the current system |
 | `voiceover_default` | Check whether VoiceOver is the default screen reader |
