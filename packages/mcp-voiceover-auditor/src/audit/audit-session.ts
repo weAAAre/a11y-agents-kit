@@ -79,6 +79,16 @@ export class AuditSession {
           ? Date.now() - this.startedAt.getTime()
           : null;
 
+    const counts = this.findings.reduce(
+      (acc, f) => {
+        if (f.type === 'violation') acc.violations++;
+        else if (f.type === 'warning') acc.warnings++;
+        else if (f.type === 'pass') acc.passes++;
+        return acc;
+      },
+      { violations: 0, warnings: 0, passes: 0 },
+    );
+
     return {
       status: this.status,
       url: this.metadata?.url ?? '',
@@ -87,9 +97,9 @@ export class AuditSession {
       endedAt: this.endedAt?.toISOString() ?? null,
       durationMs,
       totalFindings: this.findings.length,
-      violations: this.findings.filter((f) => f.type === 'violation').length,
-      warnings: this.findings.filter((f) => f.type === 'warning').length,
-      passes: this.findings.filter((f) => f.type === 'pass').length,
+      violations: counts.violations,
+      warnings: counts.warnings,
+      passes: counts.passes,
     };
   }
 
