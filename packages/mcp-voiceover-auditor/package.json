@@ -34,11 +34,11 @@
     "mcp",
     "accessibility",
     "a11y",
-    "color",
-    "contrast",
-    "wcag",
-    "color-blindness",
-    "apca"
+    "voiceover",
+    "screen-reader",
+    "macos",
+    "a11y",
+    "wcag"
   ],
   "repository": {
     "type": "git",
