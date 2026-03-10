@@ -37,10 +37,6 @@ function buildHandlers(session: AuditSession): Map<string, ToolHandler> {
 
     const report = generateReport(session, format);
 
-    if (format === 'json') {
-      return result.text(report);
-    }
-
     return result.text(report);
   });
 
