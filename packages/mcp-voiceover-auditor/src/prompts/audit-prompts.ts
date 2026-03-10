@@ -104,10 +104,10 @@ const fullAccessibilityAudit: PromptDefinition = {
 - Try a workaround (e.g., Tab key) and continue; never stop at the first failure
 
 ## Phase 3 — Report & Shutdown
-1. \`voiceover_stop\` — **stop VoiceOver**
+1. \`end_audit\`
 2. \`generate_report\` with format "markdown"
 3. Present the report with critical issues first
-4. \`end_audit\``,
+4. \`voiceover_stop\` — **stop VoiceOver**`,
         },
       },
     ];
