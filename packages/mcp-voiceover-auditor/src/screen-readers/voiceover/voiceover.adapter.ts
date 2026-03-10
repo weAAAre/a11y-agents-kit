@@ -260,6 +260,11 @@ export class VoiceOverAdapter implements ScreenReaderPort {
   async click(options?: ClickOptions): Promise<ScreenReaderCommandResult> {
     const button = options?.button ?? 'left';
     const clickCount = options?.clickCount ?? 1;
+
+    if (![1, 2, 3].includes(clickCount)) {
+      throw new Error('clickCount must be 1, 2, or 3.');
+    }
+
     await voiceOver.click({ button, clickCount: clickCount as 1 | 2 | 3 });
     return {
       action: 'clicked mouse',
