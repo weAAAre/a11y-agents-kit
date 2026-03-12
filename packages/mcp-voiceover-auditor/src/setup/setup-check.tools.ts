@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 function loadAppleScript(scriptName: string): string {
-  const scriptPath = join(__dirname, 'utils', scriptName);
+  const scriptPath = join(__dirname, '..', 'utils', scriptName);
   return readFileSync(scriptPath, 'utf-8');
 }
 

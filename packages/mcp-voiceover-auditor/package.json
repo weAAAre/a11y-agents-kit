@@ -13,7 +13,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && mkdir -p dist/utils && cp src/utils/*.applescript dist/utils/",
     "check-types": "tsc --noEmit",
     "lint": "biome check .",
     "dev": "tsc --watch",
