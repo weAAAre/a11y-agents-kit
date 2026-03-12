@@ -1,6 +1,6 @@
 {
   "name": "@weaaare/mcp-virtual-screen-reader-auditor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "MCP server for virtual screen reader accessibility auditing — headless browser-based screen reader simulation that works on any OS",
   "license": "MIT",
   "type": "module",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@guidepup/virtual-screen-reader": "catalog:",
     "@modelcontextprotocol/sdk": "catalog:",
-    "@weaaare/mcp-auditor-core": "workspace:*",
+    "@weaaare/mcp-auditor-core": "workspace:^",
     "playwright-core": "catalog:"
   },
   "devDependencies": {

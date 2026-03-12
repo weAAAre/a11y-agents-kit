@@ -1,6 +1,6 @@
 {
   "name": "@weaaare/mcp-voiceover-auditor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "MCP server for voiceover accessibility auditing — analyzing and improving screen reader output for better accessibility",
   "license": "MIT",
   "type": "module",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@guidepup/guidepup": "catalog:",
     "@modelcontextprotocol/sdk": "catalog:",
-    "@weaaare/mcp-auditor-core": "workspace:*"
+    "@weaaare/mcp-auditor-core": "workspace:^"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
