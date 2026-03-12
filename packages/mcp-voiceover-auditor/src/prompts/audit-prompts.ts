@@ -1,11 +1,5 @@
-import type { Prompt } from '@modelcontextprotocol/sdk/types.js';
-
-interface PromptDefinition {
-  readonly prompt: Prompt;
-  readonly getMessage: (
-    args: Record<string, string | undefined>,
-  ) => { role: 'user'; content: { type: 'text'; text: string } }[];
-}
+import type { PromptDefinition } from '@weaaare/mcp-auditor-core';
+import { getPromptMessages, listPrompts } from '@weaaare/mcp-auditor-core';
 
 // ─── Shared lifecycle instructions ───────────────────────────────────────────
 // Every audit prompt follows the same start/stop discipline:
@@ -58,35 +52,54 @@ const fullAccessibilityAudit: PromptDefinition = {
 
 ## Phase 2 — Audit Workflow
 
+### 2.0 Enable Quick Nav for efficient navigation
+- \`voiceover_commander\` → toggleSingleKeyQuickNav
+  (Once enabled: 'h' = next heading, 'l' = next link, 'f' = next form control, 'i' = next image, 'w' = next landmark, 't' = next table, '1'-'6' = heading levels. Shift+key = previous.)
+  
 ### 2.1 Page Title & Language
 - \`voiceover_item_text\` — check what VoiceOver announces on page load
 - Verify the page title is descriptive (WCAG 2.4.2 Page Titled)
 - Log finding
 
 ### 2.2 Landmark Regions
-- \`voiceover_perform\` → jumpToTopEdge
-- Navigate with \`voiceover_next\`, listening for landmarks (main, nav, banner, contentinfo, complementary)
+- \`voiceover_commander\` → goToBeginning
+- \`voiceover_commander\` → findNextLandmark (repeat until exhausted)
+- For each landmark: \`voiceover_last_spoken_phrase\` to identify its type (banner, navigation, main, contentinfo, complementary)
+- Verify \`main\` landmark exists (required), \`navigation\` recommended
 - Log findings for WCAG 1.3.1 (Info and Relationships)
 
 ### 2.3 Heading Structure
-- \`voiceover_perform\` → findNextHeading (repeat until exhausted)
-- Record each heading level and text
+- \`voiceover_commander\` → goToBeginning
+- \`voiceover_perform\` → findNextHeading (repeat until exhausted) — or use Quick Nav: \`voiceover_press\` 'h' repeatedly
+- Record each heading level and text via \`voiceover_last_spoken_phrase\`
 - Verify: exactly one h1, no skipped levels (h1→h2→h3, not h1→h3)
 - Log findings for WCAG 1.3.1, 2.4.6 (Headings and Labels)
 
 ### 2.4 Links
-- \`voiceover_perform\` → findNextLink (repeat)
+- \`voiceover_commander\` → goToBeginning
+- \`voiceover_perform\` → findNextLink (repeat) — or Quick Nav: \`voiceover_press\` 'l' repeatedly
+- For each link: \`voiceover_last_spoken_phrase\` + \`voiceover_commander\` → readLinkAddress
 - Verify descriptive link text (not "click here", "read more", "here")
 - Log findings for WCAG 2.4.4 (Link Purpose in Context)
 
 ### 2.5 Forms
-- \`voiceover_perform\` → findNextControl (repeat)
-- For each control: verify label, required state, keyboard reachability
+- \`voiceover_commander\` → goToBeginning
+- Navigate by control type for thorough coverage:
+  a. \`voiceover_commander\` → findNextField (repeat) — text inputs, selects, textareas
+  b. \`voiceover_commander\` → findNextButton (repeat) — buttons/submit
+  c. \`voiceover_commander\` → findNextTickbox (repeat) — checkboxes
+  d. \`voiceover_commander\` → findNextRadioGroup (repeat) — radio groups
+- For each control: verify label, required state via \`voiceover_last_spoken_phrase\`
 - Log findings for WCAG 1.3.1, 3.3.2, 4.1.2
 
 ### 2.6 Images
-- Navigate through images; verify alt text exists and is descriptive
-- Decorative images must be hidden from the screen reader
+- \`voiceover_commander\` → goToBeginning
+- Use Quick Nav: \`voiceover_press\` 'i' to jump directly image-to-image (repeat until exhausted)
+- For each image:
+  a. \`voiceover_last_spoken_phrase\` — check announcement
+  b. \`voiceover_commander\` → readImageDescriptionForItem — get image description
+  c. Verify alt text exists and is descriptive
+  d. Decorative images must be hidden from the screen reader
 - Log findings for WCAG 1.1.1 (Non-text Content)
 
 ### 2.7 Keyboard Navigation
@@ -144,9 +157,11 @@ const headingStructureAudit: PromptDefinition = {
 5. \`start_audit\` with url "${url}"
 
 ## Heading Traversal
-6. \`voiceover_perform\` → jumpToTopEdge
+6. \`voiceover_commander\` → goToBeginning
 7. \`voiceover_perform\` → findNextHeading — repeat until no more headings are found
+   (Alternative: enable Quick Nav with \`voiceover_commander\` → toggleSingleKeyQuickNav, then \`voiceover_press\` 'h' repeatedly)
 8. For each heading record: level, text content, spoken phrase (use \`voiceover_last_spoken_phrase\` and \`voiceover_item_text\`)
+9. Also verify specific levels: \`voiceover_press\` '1' to find all h1s (should be exactly one)
 
 ## Verification
 9. Check:
@@ -195,7 +210,11 @@ const formAccessibilityAudit: PromptDefinition = {
 4. \`start_audit\` with url "${url}"
 
 ## Form Controls
-5. \`voiceover_perform\` → findNextControl (repeat for every control)
+5. Navigate by specific control type for thorough coverage:
+   a. \`voiceover_commander\` → findNextField (repeat) — find all text inputs, selects, textareas
+   b. \`voiceover_commander\` → findNextButton (repeat) — find all buttons
+   c. \`voiceover_commander\` → findNextTickbox (repeat) — find all checkboxes
+   d. \`voiceover_commander\` → findNextRadioGroup (repeat) — find all radio groups
 6. For each control:
    a. Record VoiceOver announcement (label, role, state) via \`voiceover_last_spoken_phrase\`
    b. \`voiceover_item_text\` — verify label association
@@ -253,8 +272,9 @@ const navigationAudit: PromptDefinition = {
 5. Tab once from page start — check for a "skip to content" link
 
 ## Landmarks
-6. Navigate the page and identify ARIA landmarks:
-   - banner (header), navigation (nav), main, contentinfo (footer), complementary (aside)
+6. \`voiceover_commander\` → findNextLandmark (repeat until exhausted)
+   - For each: \`voiceover_last_spoken_phrase\` to identify type
+   - Identify: banner (header), navigation (nav), main, contentinfo (footer), complementary (aside)
    - Log missing required landmarks (main is required, navigation recommended)
 
 ## Tab Order
@@ -322,7 +342,7 @@ ${template}
   },
 };
 
-export const AUDIT_PROMPTS: ReadonlyMap<string, PromptDefinition> = new Map([
+export const VOICEOVER_PROMPTS: ReadonlyMap<string, PromptDefinition> = new Map([
   ['full_accessibility_audit', fullAccessibilityAudit],
   ['heading_structure_audit', headingStructureAudit],
   ['form_accessibility_audit', formAccessibilityAudit],
@@ -330,17 +350,10 @@ export const AUDIT_PROMPTS: ReadonlyMap<string, PromptDefinition> = new Map([
   ['fill_report_template', fillReportTemplate],
 ]);
 
-export function listPrompts(): Prompt[] {
-  return [...AUDIT_PROMPTS.values()].map((p) => p.prompt);
-}
+export const listVoiceOverPrompts = (): ReturnType<typeof listPrompts> =>
+  listPrompts(VOICEOVER_PROMPTS);
 
-export function getPromptMessages(
+export const getVoiceOverPromptMessages = (
   name: string,
   args: Record<string, string | undefined>,
-): { role: 'user'; content: { type: 'text'; text: string } }[] {
-  const definition = AUDIT_PROMPTS.get(name);
-  if (!definition) {
-    throw new Error(`Unknown prompt: ${name}. Available: ${[...AUDIT_PROMPTS.keys()].join(', ')}`);
-  }
-  return definition.getMessage(args);
-}
+): ReturnType<typeof getPromptMessages> => getPromptMessages(name, args, VOICEOVER_PROMPTS);
