@@ -1,6 +1,6 @@
 {
   "name": "@weaaare/mcp-a11y-color",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "MCP server for color accessibility — contrast checking, color blindness simulation, palette analysis, and WCAG 2.2 compliance",
   "license": "MIT",
   "type": "module",
@@ -43,12 +43,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/weAAAre/accessibility-ai.git",
+    "url": "git+https://github.com/weAAAre/a11y-agents-kit.git",
     "directory": "packages/mcp-a11y-color"
   },
-  "homepage": "https://github.com/weAAAre/accessibility-ai/tree/main/packages/mcp-a11y-color#readme",
+  "homepage": "https://github.com/weAAAre/a11y-agents-kit/tree/main/packages/mcp-a11y-color#readme",
   "bugs": {
-    "url": "https://github.com/weAAAre/accessibility-ai/issues"
+    "url": "https://github.com/weAAAre/a11y-agents-kit/issues"
   },
   "author": "weAAAre <hola@weAAAre.com> (https://weAAAre.com)",
   "engines": {

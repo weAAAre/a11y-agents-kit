@@ -1,6 +1,6 @@
 {
   "name": "@weaaare/mcp-auditor-core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Shared core for screen reader accessibility audit MCP servers — audit sessions, findings, reports, tool registry",
   "license": "MIT",
   "type": "module",
@@ -27,12 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/weAAAre/accessibility-ai.git",
+    "url": "git+https://github.com/weAAAre/a11y-agents-kit.git",
     "directory": "packages/mcp-auditor-core"
   },
-  "homepage": "https://github.com/weAAAre/accessibility-ai/tree/main/packages/mcp-auditor-core#readme",
+  "homepage": "https://github.com/weAAAre/a11y-agents-kit/tree/main/packages/mcp-auditor-core#readme",
   "bugs": {
-    "url": "https://github.com/weAAAre/accessibility-ai/issues"
+    "url": "https://github.com/weAAAre/a11y-agents-kit/issues"
   },
   "author": "weAAAre <hola@weAAAre.com> (https://weAAAre.com)",
   "engines": {

@@ -1,71 +1,327 @@
-# accessibility-ai
+<p align="center">
+  <img src=".github/assets/weaaare-logo.png" alt="weAAAre logo" width="120" />
+</p>
 
-> Accessibility tools and agent skills for AI coding agents — by [weAAAre](https://weAAAre.com), the digital accessibility school.
+<h1 align="center">a11y-agents-kit</h1>
 
-[![CI](https://github.com/weAAAre/accessibility-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/weAAAre/accessibility-ai/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Node >= 24](https://img.shields.io/badge/node-%3E%3D24-brightgreen)](https://nodejs.org/)
-[![pnpm](https://img.shields.io/badge/pnpm-9-orange)](https://pnpm.io/)
+<p align="center">
+  Accessibility tools and agent skills for AI coding agents — by <a href="https://weAAAre.com">weAAAre</a>, the digital accessibility school.
+</p>
+
+<p align="center">
+  <a href="https://github.com/weAAAre/a11y-agents-kit/actions/workflows/ci.yml"><img src="https://github.com/weAAAre/a11y-agents-kit/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D24-brightgreen" alt="Node >= 24" /></a>
+  <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-9-orange" alt="pnpm" /></a>
+</p>
+
+---
+
+## What is weAAAre?
+
+[weAAAre](https://weAAAre.com) is an online school dedicated to digital accessibility. It offers asynchronous courses at your own pace covering UX/UI design, web development, product management, QA, and more — all focused on building inclusive digital products.
+
+This monorepo is weAAAre's open-source contribution: free MCP servers and agent skills that bring accessibility checks directly into AI-assisted development workflows.
 
 ## What's inside
 
 This monorepo contains two types of distributable content:
 
-### 🛠️ MCP Servers (`packages/`)
+### MCP Servers (`packages/`)
 
-Model Context Protocol servers that give AI assistants programmatic accessibility tooling.
+[Model Context Protocol](https://modelcontextprotocol.io/) servers that give AI coding agents programmatic accessibility tooling.
 
-| Package | Description | Install |
-|---------|-------------|---------|
-| [`@weaaare/mcp-a11y-color`](./packages/mcp-a11y-color/) | Contrast checking, color-blindness simulation, WCAG 2.2 color compliance | `npx @weaaare/mcp-a11y-color` |
-| [`@weaaare/mcp-voiceover-auditor`](./packages/mcp-voiceover-auditor/) | Automates accessibility audits using voiceover | `npx @weaaare/mcp-voiceover-auditor` |
-| [`@weaaare/mcp-virtual-screen-reader-auditor`](./packages/mcp-virtual-screen-reader-auditor/) | Headless virtual screen reader audits (cross-platform) | `npx @weaaare/mcp-virtual-screen-reader-auditor` |
+| Package | WCAG 2.2 coverage | Install |
+|---------|-------------------|---------|
+| [`@weaaare/mcp-a11y-color`](./packages/mcp-a11y-color/) | Up to 5 success criteria (1.4.1, 1.4.3, 1.4.6, 1.4.11, 2.4.7) | `npx @weaaare/mcp-a11y-color` |
+| [`@weaaare/mcp-voiceover-auditor`](./packages/mcp-voiceover-auditor/) | Up to 12 success criteria (1.1.1, 1.3.1, 2.1.1, 2.1.2, 2.4.1–2.4.6, 3.3.1, 3.3.2, 4.1.2) | `npx @weaaare/mcp-voiceover-auditor` |
+| [`@weaaare/mcp-virtual-screen-reader-auditor`](./packages/mcp-virtual-screen-reader-auditor/) | Up to 12 success criteria (same scope as VoiceOver auditor) | `npx @weaaare/mcp-virtual-screen-reader-auditor` |
 
-### 🧠 Agent Skills (`skills/`)
+#### `@weaaare/mcp-a11y-color`
+
+Real-time color accessibility verification for AI agents. Check WCAG 2.2 contrast ratios, simulate 8 types of color-vision deficiency, audit full design-token palettes, and get automatic fix suggestions — all while writing code.
+
+#### `@weaaare/mcp-voiceover-auditor`
+
+Drives macOS VoiceOver through AppleScript, letting an AI agent navigate pages exactly as a screen-reader user would: read element announcements, check focus order, detect keyboard traps, and log structured WCAG findings — all without a human manually operating VoiceOver.
+
+#### `@weaaare/mcp-virtual-screen-reader-auditor`
+
+Launches a headless browser with a virtual screen reader injected into the page. Same navigation and audit capabilities as the VoiceOver auditor but runs on **any OS** — no native screen reader install required.
+
+> **Why screen-reader MCPs?**
+>
+> Screen-reader testing is one of the most valuable — and most skipped — steps in accessibility work. The friction is real: learning VoiceOver or NVDA takes time, setting up automated screen-reader tests is complex, and most development teams simply don't do it.
+>
+> These MCPs break that barrier. They let an AI agent operate a screen reader programmatically, navigate pages, read announcements, and log findings — turning what used to require specialist expertise into something any developer can trigger from their editor.
+>
+> The potential is significant: automated screen-reader checks on every PR, instant feedback during development, structured WCAG reports without leaving your IDE.
+>
+> **Important:** these tools do **not** replace a manual audit by an accessibility specialist, nor do they substitute real testing with assistive-technology users. They are a fast feedback loop that catches common issues early — a complement, never a replacement.
+
+### Agent Skills (`skills/`)
 
 Reusable procedural knowledge for AI coding agents, distributed via [skills.sh](https://skills.sh).
 
 | Skill | Description | Install |
 |-------|-------------|---------|
-| [`aria-patterns`](./skills/aria-patterns/) | Accessible ARIA patterns for interactive UI components | `npx skills add weAAAre/accessibility-ai@aria-patterns` |
+| [`aria-patterns`](./skills/aria-patterns/) | Accessible ARIA patterns for interactive UI components | `npx skills add weAAAre/a11y-agents-kit@aria-patterns` |
 
 ---
 
-## Quick start
+## Getting started
 
-### Install all skills
+### MCP Servers
 
-```bash
-npx skills add weAAAre/accessibility-ai
-```
+Install any of the MCP servers in your preferred client. Pick the servers you need — you can use one, two, or all three.
 
-### Install a specific skill
-
-```bash
-npx skills add weAAAre/accessibility-ai@aria-patterns
-```
-
-### Use an MCP server (Claude Desktop, VS Code, etc.)
-
-Add to your MCP client configuration:
+**Standard config** works in most MCP clients:
 
 ```json
 {
   "mcpServers": {
-    "mcp-a11y-color": {
+    "a11y-color": {
       "command": "npx",
       "args": ["-y", "@weaaare/mcp-a11y-color"]
     },
-    "mcp-voiceover-auditor": {
+    "voiceover-auditor": {
       "command": "npx",
       "args": ["-y", "@weaaare/mcp-voiceover-auditor"]
     },
-    "mcp-virtual-screen-reader-auditor": {
+    "virtual-screen-reader-auditor": {
       "command": "npx",
       "args": ["-y", "@weaaare/mcp-virtual-screen-reader-auditor"]
     }
   }
 }
+```
+
+> **Note:** `mcp-voiceover-auditor` requires macOS with VoiceOver and AppleScript enabled. `mcp-virtual-screen-reader-auditor` works on any OS.
+
+<details>
+<summary>VS Code</summary>
+
+Add to your project's `.vscode/mcp.json` (or user-level `settings.json` under `"mcp"`):
+
+```json
+{
+  "servers": {
+    "a11y-color": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-a11y-color"]
+    },
+    "voiceover-auditor": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-voiceover-auditor"]
+    },
+    "virtual-screen-reader-auditor": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-virtual-screen-reader-auditor"]
+    }
+  }
+}
+```
+
+Or install via the VS Code CLI:
+
+```bash
+# Color contrast tools
+code --add-mcp '{"name":"a11y-color","command":"npx","args":["-y","@weaaare/mcp-a11y-color"]}'
+
+# VoiceOver auditor (macOS only)
+code --add-mcp '{"name":"voiceover-auditor","command":"npx","args":["-y","@weaaare/mcp-voiceover-auditor"]}'
+
+# Virtual screen reader auditor (any OS)
+code --add-mcp '{"name":"virtual-screen-reader-auditor","command":"npx","args":["-y","@weaaare/mcp-virtual-screen-reader-auditor"]}'
+```
+
+After installation, the servers will be available for use with GitHub Copilot in VS Code.
+
+</details>
+
+<details>
+<summary>Claude Desktop</summary>
+
+Follow the MCP install [guide](https://modelcontextprotocol.io/quickstart/user). Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "a11y-color": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-a11y-color"]
+    },
+    "voiceover-auditor": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-voiceover-auditor"]
+    },
+    "virtual-screen-reader-auditor": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-virtual-screen-reader-auditor"]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Claude Code</summary>
+
+Use the Claude Code CLI:
+
+```bash
+claude mcp add a11y-color npx -y @weaaare/mcp-a11y-color
+claude mcp add voiceover-auditor npx -y @weaaare/mcp-voiceover-auditor
+claude mcp add virtual-screen-reader-auditor npx -y @weaaare/mcp-virtual-screen-reader-auditor
+```
+
+</details>
+
+<details>
+<summary>Cursor</summary>
+
+Go to `Cursor Settings` → `MCP` → `Add new MCP Server`. Use `command` type with one of:
+
+```
+npx -y @weaaare/mcp-a11y-color
+npx -y @weaaare/mcp-voiceover-auditor
+npx -y @weaaare/mcp-virtual-screen-reader-auditor
+```
+
+Or add them to your `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "a11y-color": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-a11y-color"]
+    },
+    "voiceover-auditor": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-voiceover-auditor"]
+    },
+    "virtual-screen-reader-auditor": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-virtual-screen-reader-auditor"]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Windsurf</summary>
+
+Follow Windsurf MCP [documentation](https://docs.windsurf.com/windsurf/cascade/mcp). Use the standard config above.
+
+</details>
+
+<details>
+<summary>Cline</summary>
+
+Add the following to your [`cline_mcp_settings.json`](https://docs.cline.bot/mcp/configuring-mcp-servers#editing-mcp-settings-files):
+
+```json
+{
+  "mcpServers": {
+    "a11y-color": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-a11y-color"],
+      "disabled": false
+    },
+    "voiceover-auditor": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-voiceover-auditor"],
+      "disabled": false
+    },
+    "virtual-screen-reader-auditor": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-virtual-screen-reader-auditor"],
+      "disabled": false
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Kiro</summary>
+
+Follow the MCP Servers [documentation](https://kiro.dev/docs/mcp/). Add to `.kiro/settings/mcp.json` using the standard config above.
+
+</details>
+
+<details>
+<summary>Codex</summary>
+
+Use the Codex CLI:
+
+```bash
+codex mcp add a11y-color npx "-y" "@weaaare/mcp-a11y-color"
+codex mcp add voiceover-auditor npx "-y" "@weaaare/mcp-voiceover-auditor"
+codex mcp add virtual-screen-reader-auditor npx "-y" "@weaaare/mcp-virtual-screen-reader-auditor"
+```
+
+Or edit `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.a11y-color]
+command = "npx"
+args = ["-y", "@weaaare/mcp-a11y-color"]
+
+[mcp_servers.voiceover-auditor]
+command = "npx"
+args = ["-y", "@weaaare/mcp-voiceover-auditor"]
+
+[mcp_servers.virtual-screen-reader-auditor]
+command = "npx"
+args = ["-y", "@weaaare/mcp-virtual-screen-reader-auditor"]
+```
+
+</details>
+
+<details>
+<summary>Goose</summary>
+
+Go to `Advanced settings` → `Extensions` → `Add custom extension`. Use type `STDIO` and set the command to one of:
+
+- `npx -y @weaaare/mcp-a11y-color`
+- `npx -y @weaaare/mcp-voiceover-auditor`
+- `npx -y @weaaare/mcp-virtual-screen-reader-auditor`
+
+</details>
+
+<details>
+<summary>Warp</summary>
+
+Go to `Settings` → `AI` → `Manage MCP Servers` → `+ Add`. Use the standard config above.
+
+Alternatively, use `/add-mcp` in the Warp prompt and paste the standard config.
+
+</details>
+
+<details>
+<summary>Gemini CLI</summary>
+
+Follow the MCP install [guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md#configure-the-mcp-server-in-settingsjson). Use the standard config above.
+
+</details>
+
+### Agent Skills
+
+```bash
+# Install all skills
+npx skills add weAAAre/a11y-agents-kit
+
+# Install a specific skill
+npx skills add weAAAre/a11y-agents-kit@aria-patterns
 ```
 
 ---
@@ -163,8 +419,8 @@ Add to your MCP client configuration:
 ### Setup
 
 ```bash
-git clone https://github.com/weAAAre/accessibility-ai.git
-cd accessibility-ai
+git clone https://github.com/weAAAre/a11y-agents-kit.git
+cd a11y-agents-kit
 pnpm install
 pnpm build
 ```
@@ -190,6 +446,15 @@ See [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for the full guide. In short:
 1. Fork → branch → implement → `pnpm changeset` → PR
 2. Run `pnpm check && pnpm check-types && pnpm test` before pushing
 3. Open a PR against `main` with a [conventional commit](https://www.conventionalcommits.org/) title
+
+---
+
+## Acknowledgements
+
+This project builds on the work and specifications of:
+
+- **[W3C Web Accessibility Initiative (WAI)](https://www.w3.org/WAI/)** — for the [WCAG 2.2](https://www.w3.org/TR/WCAG22/) guidelines, [WAI-ARIA](https://www.w3.org/TR/wai-aria/) specification, and the [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/). W3C content is used under the [W3C Software and Document License](https://www.w3.org/copyright/software-license/).
+- **[a11ysupport.io](https://a11ysupport.io/)** — a community-driven project by Michael Fairchild that documents assistive-technology support for ARIA and HTML features. Data is available under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 
 ---
 

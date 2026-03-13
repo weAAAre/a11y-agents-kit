@@ -5,13 +5,13 @@ This directory contains accessibility-focused skills for AI coding agents, distr
 ## Install all skills
 
 ```bash
-npx skills add weAAAre/accessibility-ai
+npx skills add weAAAre/a11y-agents-kit
 ```
 
 ## Install a specific skill
 
 ```bash
-npx skills add weAAAre/accessibility-ai@aria-patterns
+npx skills add weAAAre/a11y-agents-kit@aria-patterns
 ```
 
 ## Available skills

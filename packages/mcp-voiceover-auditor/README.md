@@ -1,8 +1,10 @@
 # @weaaare/mcp-voiceover-auditor
 
-MCP (Model Context Protocol) server for **screen reader accessibility audits on macOS**. Gives AI coding agents the ability to run VoiceOver checks, log WCAG findings, recover focus context, and generate audit reports in real-time.
+MCP (Model Context Protocol) server for **screen reader accessibility audits on macOS**. Drives VoiceOver through AppleScript, letting an AI agent navigate pages exactly as a screen-reader user would: read element announcements, check focus order, detect keyboard traps, and log structured WCAG findings — all without a human manually operating VoiceOver.
 
-Covers **WCAG 2.2** (SC 1.1.1, 1.3.1, 2.1.1, 2.1.2, 2.4.1, 2.4.2, 2.4.3, 2.4.4, 2.4.6, 3.3.1, 3.3.2, 4.1.2) criteria.
+Can help cover up to **12 WCAG 2.2 success criteria** (1.1.1, 1.3.1, 2.1.1, 2.1.2, 2.4.1, 2.4.2, 2.4.3, 2.4.4, 2.4.6, 3.3.1, 3.3.2, 4.1.2).
+
+> **Important:** This tool does **not** replace a manual audit by an accessibility specialist, nor does it substitute real testing with assistive-technology users. It is a fast feedback loop that catches common issues early — a complement, never a replacement.
 
 ## Tools
 
@@ -42,23 +44,31 @@ Covers **WCAG 2.2** (SC 1.1.1, 1.3.1, 2.1.1, 2.1.2, 2.4.1, 2.4.2, 2.4.3, 2.4.4, 
 | `end_audit` | End audit session and generate summary statistics |
 | `generate_report` | Generate audit report in `markdown`, `json`, or `csv` |
 
-## Installation
+## Requirements
 
-```bash
-npm install -g @weaaare/mcp-voiceover-auditor
+- macOS with VoiceOver
+- AppleScript enabled for VoiceOver: `VoiceOver Utility → General → Allow VoiceOver to be controlled with AppleScript`
+- Node.js >= 18
+
+## Getting started
+
+**Standard config** works in most MCP clients:
+
+```json
+{
+  "mcpServers": {
+    "voiceover-auditor": {
+      "command": "npx",
+      "args": ["-y", "@weaaare/mcp-voiceover-auditor"]
+    }
+  }
+}
 ```
 
-Or use directly with `npx`:
+<details>
+<summary>VS Code</summary>
 
-```bash
-npx @weaaare/mcp-voiceover-auditor
-```
-
-## Configuration
-
-### VS Code (GitHub Copilot)
-
-Add to `.vscode/mcp.json`:
+Add to your project's `.vscode/mcp.json` (or user-level `settings.json` under `"mcp"`):
 
 ```json
 {
@@ -71,20 +81,110 @@ Add to `.vscode/mcp.json`:
 }
 ```
 
-### Claude Desktop
+Or install via the VS Code CLI:
 
-Add to `claude_desktop_config.json`:
+```bash
+code --add-mcp '{"name":"voiceover-auditor","command":"npx","args":["-y","@weaaare/mcp-voiceover-auditor"]}'
+```
+
+</details>
+
+<details>
+<summary>Claude Desktop</summary>
+
+Follow the MCP install [guide](https://modelcontextprotocol.io/quickstart/user). Add to your `claude_desktop_config.json` using the standard config above.
+
+</details>
+
+<details>
+<summary>Claude Code</summary>
+
+```bash
+claude mcp add voiceover-auditor npx -y @weaaare/mcp-voiceover-auditor
+```
+
+</details>
+
+<details>
+<summary>Cursor</summary>
+
+Go to `Cursor Settings` → `MCP` → `Add new MCP Server`. Use `command` type with `npx -y @weaaare/mcp-voiceover-auditor`.
+
+Or add to `.cursor/mcp.json` using the standard config above.
+
+</details>
+
+<details>
+<summary>Windsurf</summary>
+
+Follow Windsurf MCP [documentation](https://docs.windsurf.com/windsurf/cascade/mcp). Use the standard config above.
+
+</details>
+
+<details>
+<summary>Cline</summary>
+
+Add to your [`cline_mcp_settings.json`](https://docs.cline.bot/mcp/configuring-mcp-servers#editing-mcp-settings-files):
 
 ```json
 {
   "mcpServers": {
     "voiceover-auditor": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@weaaare/mcp-voiceover-auditor"]
+      "args": ["-y", "@weaaare/mcp-voiceover-auditor"],
+      "disabled": false
     }
   }
 }
 ```
+
+</details>
+
+<details>
+<summary>Kiro</summary>
+
+Follow the MCP Servers [documentation](https://kiro.dev/docs/mcp/). Add to `.kiro/settings/mcp.json` using the standard config above.
+
+</details>
+
+<details>
+<summary>Codex</summary>
+
+```bash
+codex mcp add voiceover-auditor npx "-y" "@weaaare/mcp-voiceover-auditor"
+```
+
+Or edit `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.voiceover-auditor]
+command = "npx"
+args = ["-y", "@weaaare/mcp-voiceover-auditor"]
+```
+
+</details>
+
+<details>
+<summary>Goose</summary>
+
+Go to `Advanced settings` → `Extensions` → `Add custom extension`. Use type `STDIO` and set the command to `npx -y @weaaare/mcp-voiceover-auditor`.
+
+</details>
+
+<details>
+<summary>Warp</summary>
+
+Go to `Settings` → `AI` → `Manage MCP Servers` → `+ Add`. Use the standard config above.
+
+</details>
+
+<details>
+<summary>Gemini CLI</summary>
+
+Follow the MCP install [guide](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md#configure-the-mcp-server-in-settingsjson). Use the standard config above.
+
+</details>
 
 ## WCAG criteria covered
 
@@ -102,6 +202,11 @@ Add to `claude_desktop_config.json`:
 | 3.3.1 | Error Identification | `voiceover_last_spoken_phrase`, `voiceover_item_text`, `log_finding` |
 | 3.3.2 | Labels or Instructions | `voiceover_item_text`, `voiceover_perform`, `log_finding` |
 | 4.1.2 | Name, Role, Value | `voiceover_last_spoken_phrase`, `voiceover_item_text`, `log_finding` |
+
+## Acknowledgements
+
+- **[W3C](https://www.w3.org/WAI/)** — for the [WCAG 2.2](https://www.w3.org/TR/WCAG22/) guidelines, [WAI-ARIA](https://www.w3.org/TR/wai-aria/) specification, and the [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/). W3C content is used under the [W3C Software and Document License](https://www.w3.org/copyright/software-license/).
+- **[a11ysupport.io](https://a11ysupport.io/)** — community-driven assistive-technology support data by Michael Fairchild, available under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## License
 

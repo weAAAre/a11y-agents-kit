@@ -1,6 +1,6 @@
 {
   "name": "@weaaare/mcp-voiceover-auditor",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "MCP server for voiceover accessibility auditing — analyzing and improving screen reader output for better accessibility",
   "license": "MIT",
   "type": "module",
@@ -43,12 +43,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/weAAAre/accessibility-ai.git",
+    "url": "git+https://github.com/weAAAre/a11y-agents-kit.git",
     "directory": "packages/mcp-voiceover-auditor"
   },
-  "homepage": "https://github.com/weAAAre/accessibility-ai/tree/main/packages/mcp-voiceover-auditor#readme",
+  "homepage": "https://github.com/weAAAre/a11y-agents-kit/tree/main/packages/mcp-voiceover-auditor#readme",
   "bugs": {
-    "url": "https://github.com/weAAAre/accessibility-ai/issues"
+    "url": "https://github.com/weAAAre/a11y-agents-kit/issues"
   },
   "author": "weAAAre <hola@weAAAre.com> (https://weAAAre.com)",
   "engines": {
